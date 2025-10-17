@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Baby</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: radial-gradient(circle at top, #ffe4f3, #f3e5f5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+  }
+
+  .container {
+    text-align: center;
+    color: #d81b60;
+  }
+
+  h1 {
+    font-size: 2.5em;
+    animation: fadeIn 2s ease;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+  .question {
+    margin-top: 20px;
+    font-size: 1.4em;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 2.5s;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    font-size: 1em;
+    border: none;
+    border-radius: 25px;
+    background: #f06292;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #ec407a;
+    transform: scale(1.05);
+  }
+
+  .baby-section {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  .baby-section img {
+    width: 280px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(255, 182, 193, 0.7);
+    margin-top: 20px;
+    animation: zoomIn 1s ease forwards;
+  }
+
+  @keyframes zoomIn {
+    from {transform: scale(0.6); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+  }
+
+  .baby-name {
+    margin-top: 20px;
+    font-size: 2.9em;
+    font-weight: bold;
+    color: #e91e63;
+    text-shadow: 0 0 25px #f8bbd0, 0 0 40px #f48fb1;
+    opacity: 0;
+    animation: fadeInName 1.5s ease forwards;
+    animation-delay: 1s;
+  }
+
+  @keyframes fadeInName {
+    from {opacity: 0; transform: scale(0.5);}
+    to {opacity: 1; transform: scale(1.2);}
+  }
+
+  /* Floating Hearts */
+  .heart {
+    position: absolute;
+    color: #ff6f91;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-700px) scale(1.5);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🎉 नामकरण सोहळ्यात आपले सहर्ष स्वागत आहे.. 🎉</h1>
+  <div class="question">
+    <p>तुम्हाला बाळाचं नाव बघायचंय ?</p>
+    <button id="yesBtn">हो 💖</button>
+  </div>
+
+  <div class="baby-section" id="babySection">
+    <img src="radhika.jpeg" alt="Baby">
+    <div class="baby-name">🥰 राधिका 🥰</div>
+  </div>
+</div>
+
+<audio id="bgMusic" src="music.mp3"></audio>
+
+<script>
+  const yesBtn = document.getElementById('yesBtn');
+  const babySection = document.getElementById('babySection');
+  const music = document.getElementById('bgMusic');
+
+  yesBtn.addEventListener('click', () => {
+    document.querySelector('.question').style.display = 'none';
+    babySection.style.display = 'flex';
+    music.play();
+    createHearts();
+  });
+
+  function createHearts() {
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '💖';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.animationDuration = 3 + Math.random() * 3 + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+  }
+const welcomeText = document.querySelector('h1');
+
+yesBtn.addEventListener('click', () => {
+  // Fade out welcome text
+  welcomeText.style.transition = 'opacity 1s ease';
+  welcomeText.style.opacity = 0;
+
+  // Fade out question
+  document.querySelector('.question').style.transition = 'opacity 0.8s ease';
+  document.querySelector('.question').style.opacity = 0;
+
+  // After fade out, show baby section
+  setTimeout(() => {
+    document.querySelector('.question').style.display = 'none';
+    welcomeText.style.display = 'none';
+    babySection.style.display = 'flex';
+    music.play();
+    createHearts();
+  }, 1000); // Match the fade out duration
+});
+
+</script>
+
+
+</body>
+</html>
